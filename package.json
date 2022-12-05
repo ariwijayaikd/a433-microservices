@@ -31,5 +31,20 @@
     "karma": "^1.7.0",
     "karma-jasmine": "^1.1.0",
     "karma-phantomjs-launcher": "^1.0.4"
-  }
+  },
+  "description": "Repository ini digunakan untuk kebutuhan kelas Belajar Membangun Arsitektur Microservices",
+  "main": "app.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dicodingacademy/a433-microservices.git"
+  },
+  "author": "ariwijayaikd",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dicodingacademy/a433-microservices/issues"
+  },
+  "homepage": "https://github.com/dicodingacademy/a433-microservices#readme",
+  "keywords": [
+    "a433-microservices"
+  ]
 }

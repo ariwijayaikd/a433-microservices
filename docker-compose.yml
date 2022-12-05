@@ -1,0 +1,45 @@
+# Menggunakan Docker Compose versi 2 atau lebih.
+version: "3.7"
+
+# Memiliki network dengan default type (bridge) bernama app-network.
+networks:
+  app-network:
+    name: app-network
+
+# Memiliki dua buah service: item-app dan item-db.
+services:
+  # Service item-app.
+  item-app:
+    # Image yang digunakan (registry/ dockerhub/ github)
+    image: ariwijayaikd/item-app:v1
+    # Network yang digunakan
+    networks:
+      - app-network
+    # Port running aplikasi
+    ports:
+      - 80:8080
+    # Menentukan bahwa working directory untuk container adalah /app.
+    working_dir: /app
+    # Menerapkan restart policy pada berkas docker-compose.yml agar container selalu restart ketika terhenti.
+    restart: always
+    # Pastikan item-app hanya berjalan setelah item-db diluncurkan.
+    depends_on:
+      - item-db
+
+  # Service item-db.
+  item-db:
+    # Menggunakan image mongo:3 dari Docker Hub.
+    image: mongo:3
+    # Menerapkan restart policy pada berkas docker-compose.yml agar container selalu restart ketika terhenti.
+    restart: always
+    # Memakai volume bernama app-db dengan target /data/db di container.
+    volumes:
+      - app-db:/data/db
+    # Mengatur environment akses database mongo
+    environment:
+      MONGO_USERNAME: root
+      MONGO_PASSWORD: password
+
+# Memiliki satu buah volume bernama app-db.
+volumes:
+  app-db:
