@@ -1,0 +1,22 @@
+PS D:\Code\GitHub\microservicesDocker\ProyekPertama\a433-microservices> docker compose up
+[+] Running 2/2
+ - Container a433-microservices-item-db-1   Recreated                                                                                                             0.1s 
+ - Container a433-microservices-item-app-1  Recreated                                                                                                             0.1s 
+Attaching to a433-microservices-item-app-1, a433-microservices-item-db-1
+a433-microservices-item-db-1   | 2022-12-05T12:20:45.932+0000 I CONTROL  [initandlisten] MongoDB starting : pid=1 port=27017 dbpath=/data/db 64-bit host=d4750e19cee3
+a433-microservices-item-db-1   | 2022-12-05T12:20:45.933+0000 I CONTROL  [initandlisten] db version v3.6.23
+a433-microservices-item-db-1   | 2022-12-05T12:20:45.933+0000 I CONTROL  [initandlisten] git version: d352e6a4764659e0d0350ce77279de3c1f243e5c
+a433-microservices-item-db-1   | 2022-12-05T12:20:45.933+0000 I CONTROL  [initandlisten] OpenSSL version: OpenSSL 1.0.2g  1 Mar 2016
+a433-microservices-item-db-1   | 2022-12-05T12:20:45.933+0000 I CONTROL  [initandlisten] allocator: tcmalloc
+a433-microservices-item-db-1   | 2022-12-05T12:20:45.933+0000 I CONTROL  [initandlisten] modules: none
+a433-microservices-item-db-1   | 2022-12-05T12:20:45.933+0000 I CONTROL  [initandlisten] build environment:
+a433-microservices-item-db-1   | 2022-12-05T12:20:45.933+0000 I CONTROL  [initandlisten]     distmod: ubuntu1604
+a433-microservices-item-db-1   | 2022-12-05T12:20:45.933+0000 I CONTROL  [initandlisten]     distarch: x86_64
+a433-microservices-item-db-1   | 2022-12-05T12:20:45.933+0000 I CONTROL  [initandlisten]     target_arch: x86_64
+a433-microservices-item-db-1   | 2022-12-05T12:20:45.933+0000 I CONTROL  [initandlisten] options: { net: { bindIpAll: true }, security: { authorization: "enabled" } } 
+a433-microservices-item-db-1   | 2022-12-05T12:20:45.933+0000 I -        [initandlisten] Detected data files in /data/db created by the 'wiredTiger' storage engine, soa433-microservices-item-app-1  | > docker-software-delivery@1.0.0 start /app
+a433-microservices-item-app-1  | > node ./bin/www
+a433-microservices-item-app-1  |a433-microservices-item-app-1  | NODE_ENV: production
+a433-microservices-item-db-1   | 2022-12-05T12:20:48.138+0000 I NETWORK  [listener] connection accepted from 172.30.0.3:37558 #1 (1 connection now open)
+a433-microservices-item-db-1   | 2022-12-05T12:20:48.147+0000 I NETWORK  [conn1] received client metadata from 172.30.0.3:37558 conn1: { driver: { name: "nodejs", version: "2.2.36" }, os: { type: "Linux", name: "linux", architecture: "x64", version: "5.10.16.3-microsoft-standard-WSL2" }, platform: "Node.js v14.21.1, LE, mongodb-core: 2.1.20" }
+a433-microservices-item-app-1  | Connected to database

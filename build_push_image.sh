@@ -11,7 +11,7 @@ docker images
 docker image tag item-app:v1 ghcr.io/ariwijayaikd/item-app:v1
 
 # Login ke Docker Hub (atau GitHub Packages bila menerapkan saran keempat) via Terminal.
-export CR_PAT=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
+export CR_PAT=token
 # export PASSWORD_DOCKER_HUB=token
 # echo $PASSWORD_DOCKER_HUB | docker login -u ariwijayaikd --password-stdin
 echo $CR_PAT | docker login ghcr.io -u ariwijayaikd --password-stdin

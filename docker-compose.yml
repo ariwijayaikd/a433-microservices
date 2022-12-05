@@ -20,13 +20,16 @@ services:
     image: mongo:3
     # Menerapkan restart policy pada berkas docker-compose.yml agar container selalu restart ketika terhenti.
     restart: always
+    # Network yang digunakan
+    networks:
+      - app-network
     # Memakai volume bernama app-db dengan target /data/db di container.
     volumes:
-      - app-db:/data/db
+      - "app-db:/data/db"
     # Mengatur environment akses database mongo
     environment:
-      MONGO_USERNAME: root
-      MONGO_PASSWORD: password
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: password
 
   # Service item-app.
   item-app:
@@ -35,13 +38,13 @@ services:
     # Network yang digunakan
     networks:
       - app-network
-    # Port running aplikasi
-    ports:
-      - 80:8080
     # Menentukan bahwa working directory untuk container adalah /app.
     working_dir: /app
     # Menerapkan restart policy pada berkas docker-compose.yml agar container selalu restart ketika terhenti.
     restart: always
+    # Port running aplikasi
+    ports:
+      - "80:8080"
     # Pastikan item-app hanya berjalan setelah item-db diluncurkan.
     depends_on:
       - item-db
