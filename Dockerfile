@@ -1,5 +1,5 @@
 # Menggunakan base image Node.js versi 14.
-FROM node:14-alpine
+FROM node:14.21.1-alpine3.16
 # Menentukan bahwa working directory untuk container adalah /app.
 WORKDIR /app
 # Menyalin seluruh source code ke working directory di container.
