@@ -1,5 +1,5 @@
 # Menggunakan Docker Compose versi 2 atau lebih.
-version: "3.7"
+version: "3.8"
 
 # Memiliki network bernama app-network dengan tipe bridge.
 networks:
@@ -45,3 +45,7 @@ services:
     # Pastikan item-app hanya berjalan setelah item-db diluncurkan.
     depends_on:
       - item-db
+    # Mengatur environment mode aplikasi dan akses database mongo
+    environment:
+      - MODE_ENV=production
+      - DB_HOST=item-db
