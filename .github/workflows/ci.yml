@@ -1,0 +1,38 @@
+name: "karsajobs-CI"
+on:
+  push:
+    branches:
+      - karsajobs
+  pull_request:
+
+jobs:
+  runs-on: ubuntu-latest
+  lint-dockerfile:
+    steps: 
+    - name: Checkout
+      uses: actions/checkout@master
+    - name: lint
+      uses: luke142367/Docker-Lint-Action@v1.0.0
+      with:
+        target: Dockerfile
+      env:
+        GITHUB_TOKEN: ${{ secrets.GHPTOKEN }}
+
+  test-app:
+    needs: ["lint-dockerfile"]
+    steps:
+      - uses: actions/checkout@v3
+      - name: test-app
+        run: go test -v -short --count=1 $(go list ./...)
+
+  build-app-karsajobs:
+    needs: ["test-app"]
+    step:
+      - name: build-app-karsajobs
+        run: |
+          docker build -t karsajobs:latest .
+          docker image tag karsajobs:latest ghcr.io/ariwijayaikd/karsajobs:latest
+          export CR_PAT= ${{ secrets.GHPTOKEN }}
+          echo $CR_PAT | docker login ghcr.io -u ariwijayaikd --password-stdin
+          docker push ghcr.io/ariwijayaikd/karsajobs:latest
+          exit
