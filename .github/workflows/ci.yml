@@ -1,0 +1,31 @@
+name: "karsajobs-ui-CI"
+on:
+  push:
+    branches:
+      - karsajobs-ui
+  pull_request:
+
+jobs:
+  runs-on: ubuntu-latest
+  lint-dockerfile:
+    steps: 
+    - name: Checkout
+      uses: actions/checkout@master
+    - name: lint
+      uses: luke142367/Docker-Lint-Action@v1.0.0
+      with:
+        target: Dockerfile
+      env:
+        GITHUB_TOKEN: ${{ secrets.GHPTOKEN }}
+
+  build-app-karsajobs-ui:
+    needs: ["test-app"]
+    step:
+      - name: build-app-karsajobs-ui
+        run: |
+          docker build -t karsajobs-ui:latest .
+          docker image tag karsajobs-ui:latest ghcr.io/ariwijayaikd/karsajobs-ui:latest
+          export CR_PAT= ${{ secrets.GHPTOKEN }}
+          echo $CR_PAT | docker login ghcr.io -u ariwijayaikd --password-stdin
+          docker push ghcr.io/ariwijayaikd/karsajobs-ui:latest
+          exit
