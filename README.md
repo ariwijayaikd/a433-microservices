@@ -1,2 +1,2 @@
-# a433-microservices
-Repository ini digunakan untuk kebutuhan kelas Belajar Membangun Arsitektur Microservices
+# Kriteria 3:
+Repository ini digunakan untuk Deploy Aplikasi ke Kubernetes
