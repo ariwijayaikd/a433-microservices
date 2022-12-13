@@ -1,0 +1,20 @@
+#  apiVersion yang digunakan adalah v1
+apiVersion: v1
+
+# Bagian kind diisi dengan Service, sesuai dengan object yang akan dibuat
+kind: Service
+
+# menambahkan metadata untuk memberi detail pada nama app, namespace, dan label
+metadata:
+  namespace: karsajobs-namespace
+  name: mongo
+  labels:
+    app: mongo
+spec:
+  ports:
+  - port: 27017
+    protocol: TCP
+  selector:
+    app: mongo
+    tier: backend
+  clusterIP: None

@@ -1,0 +1,14 @@
+#  apiVersion yang digunakan adalah v1
+apiVersion: v1
+
+# Bagian kind diisi dengan ConfigMap, sesuai dengan object yang akan dibuat
+kind: ConfigMap
+
+# menambahkan metadata untuk memberi detail pada nama config dan namespace
+metadata:
+  namespace: karsajobs-namespace
+  name: mongo-config
+data:
+  mongo.conf: |
+    storage:
+      dbPath: /data/db

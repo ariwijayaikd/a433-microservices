@@ -1,0 +1,55 @@
+#  apiVersion yang digunakan adalah v1
+apiVersion: v1
+
+# Bagian kind diisi dengan PresistentVolume, sesuai dengan object yang akan dibuat
+kind: PersistentVolume
+
+# menambahkan metadata untuk memberi detail pada nama, namespace, dan label
+metadata:
+  namespace: karsajobs-namespace
+  # memberinya nama mongo-pv
+  name: mongo-pv
+  labels:
+    # menentukan tipe volume-nya adalah local
+    type: local
+
+# menambahkan spesifikasi yang diinginkan
+spec:
+  # nama Storage Class dengan manual
+  storageClassName: manual
+  # kapasitas penyimpanan
+  capacity:
+    storage: 1Gi
+  # access mode dengan read-write once
+  accessModes:
+    - ReadWriteOnce
+  # host path pada “/data/db”
+  hostPath:
+    path: "/data/db"
+
+# membuat beberapa object dengan memisahkannya menggunakan “---”
+---
+
+#  apiVersion yang digunakan adalah v1
+apiVersion: v1
+
+# Bagian kind diisi dengan PersistentVolumeClaim, sesuai dengan object yang akan dibuat
+kind: PersistentVolumeClaim
+# menambahkan metadata untuk memberi detail pada nama, namespace, dan label
+metadata:
+  namespace: karsajobs-namespace
+  name: mongo-pv-claim
+  labels:
+    app: mongo
+    
+# menambahkan spesifikasi yang diinginkan
+spec:
+  # nama Storage Class dengan manual
+  storageClassName: manual
+  # access mode dengan read-write once
+  accessModes:
+    - ReadWriteOnce
+  # permintaan penyimpanan sebesar 1GB
+  resources:
+    requests:
+      storage: 1Gi

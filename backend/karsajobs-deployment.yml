@@ -1,0 +1,49 @@
+#  apiVersion yang digunakan adalah apps/v1
+apiVersion: apps/v1
+
+# Bagian kind diisi dengan Deployment, sesuai dengan object yang akan dibuat
+kind: Deployment
+
+# menambahkan metadata untuk memberi detail pada nama app, namespace, dan label
+metadata:
+  namespace: karsajobs-namespace
+  name: karsajobs
+  labels:
+    app: karsajobs 
+
+# menambahkan spesifikasi yang diinginkan
+spec:
+  replicas: 1
+  selector:
+    # memilih labels app
+    matchLabels: 
+      app: karsajobs
+  template:
+    metadata:
+      namespace: karsajobs-namespace
+      labels:
+        app: karsajobs
+    spec:
+      # spesifikasi container yang akan dibuat
+      containers:
+        - name: karsajobs
+          image: ghcr.io/ariwijayaikd/karsajobs:latest
+          ports:
+            - containerPort: 8080
+
+          # menentukan environment variable database
+          env:
+            - name: APP_PORT
+              value: "8080"
+            - name: MONGO_HOST
+              value: "mongo"
+            - name: MONGO_USER
+              valueFrom:
+                secretKeyRef:
+                  name: mongo-credentials
+                  key: MONGO_ROOT_USERNAME
+            - name: MONGO_PASS
+              valueFrom:
+                secretKeyRef:
+                  name: mongo-credentials
+                  key: MONGO_ROOT_PASSWORD

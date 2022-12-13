@@ -1,0 +1,58 @@
+#  apiVersion yang digunakan adalah v1
+apiVersion: apps/v1
+
+# Bagian kind diisi dengan StatefulSet, sesuai dengan object yang akan dibuat
+kind: StatefulSet
+
+# menambahkan metadata untuk memberi detail pada nama app, namespace, dan label
+metadata:
+  namespace: karsajobs-namespace
+  name: mongo
+  labels:
+    app: mongo
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mongo
+      tier: backend
+  serviceName: mongo
+  template:
+    metadata:
+      namespace: karsajobs-namespace
+      labels:
+        app: mongo
+        tier: backend
+    spec:
+      containers:
+        - image: mongo:4.4.3
+          name: mongo
+          # mengatur environment MONGO_INITDB_ROOT_USERNAME and MONGO_INITDB_ROOT_PASSWORD pada image mongo
+          env:
+            - name: MONGO_INITDB_ROOT_USERNAME_FILE
+              value: /etc/mongo-credentials/MONGO_ROOT_USERNAME
+            - name: MONGO_INITDB_ROOT_PASSWORD_FILE
+              value: /etc/mongo-credentials/MONGO_ROOT_PASSWORD
+          ports:
+            - containerPort: 27017
+              name: mongo
+          volumeMounts:
+            - name: mongo-persistent-storage
+              mountPath: /data/db
+            - name: mongo-config-map
+              mountPath: /config
+            - name: mongo-credentials
+              mountPath: /etc/mongo-credentials     
+      volumes:
+        - name: mongo-persistent-storage
+          persistentVolumeClaim:
+            claimName: mongo-pv-claim
+        - name: mongo-config-map
+          configMap:
+            name: mongo-config
+            items: 
+              - key: mongo.conf
+                path: mongo.conf
+        - name: mongo-credentials
+          secret:
+            secretName: mongo-credentials
